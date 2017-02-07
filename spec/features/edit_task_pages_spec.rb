@@ -20,4 +20,12 @@ describe "the edit a task process" do
     click_button 'Update Task'
     expect(page).to have_content 'errors'
   end
+
+  it "deletes a task" do
+    list = List.create(:name => 'Home stuff')
+    task = Task.create(:description => 'Wash the dishes', :list_id => list.id)
+    visit list_path(list)
+    click_on 'Delete'
+    expect(page).to_not have_content 'Wash the dishes'
+  end
 end
